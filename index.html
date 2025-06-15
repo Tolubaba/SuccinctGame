@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors</title>
+
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link rel="stylesheet" href="index.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+  <nav>
+    <img src="images/succinct_logo.png" alt="succinct">
+    <div class="top-cont">
+      <!--<div class="top-text">
+        <span>ROCK</span><br/>
+        <span>PAPER</span><br/>
+        <span>SCISSORS</span>
+      </div>--><!--Used an image instead of text-->
+      <img src="images/logo.svg" alt="logo" class="logo">
+  
+      <div class="score-cont">
+        <span id="score-text">SCORE</span>
+        <span id="score">0</span>
+      </div>
+    </div>
+
+    <select name="teams" id="teams">
+      <option value="red">Red</option>
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+      <option value="yellow">Yellow</option>
+    </select>
+  </nav>
+
+  <!--Contains the selections-->
+  <div class="body-cont-1">
+    <img src="images/bg-triangle.svg" alt="triangle-pic">
+    <div class="choose paper paper-position" onclick="setChoice(this)" id="paper">
+      <img src="images/icon-paper.svg" alt="paper-pic" class="pics">
+    </div>
+    <div class="choose scissors scissors-position" onclick="setChoice(this)" id="scissors">
+      <img src="images/icon-scissors.svg" alt="scissors-pic" class="pics">
+    </div>
+    <div class="choose rock rock-position" onclick="setChoice(this)" id="rock">
+      <img src="images/icon-rock.svg" alt="rock-pics" class="pics">
+    </div>
+  </div>
+
+  <!--Contains what shows after the player makes a selection-->
+  <div class="body-cont-2">
+    <div class="player-cont">
+      <p>YOU PICKED</p>
+      <div class="choose-2 player border">
+        <div class="halo-cont-1">
+          <div class="halo-1"></div>
+          <div class="halo-2"></div>
+          <div class="halo-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results">
+      <p class="result"></p>
+      <button class="play-again" onclick="reset()">PLAY AGAIN</button>
+    </div>
+
+    <div class="house-cont">
+      <p>THE HOUSE PICKED</p>
+      <div class="choose-2 house border" id="small-circle">
+        <div class="halo-cont-2">
+          <div class="halo-1"></div>
+          <div class="halo-2"></div>
+          <div class="halo-3"></div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="window-width">1024</p>
+
+  <footer>
+    <div class="lock-in-button" onclick="openLockIn()">
+      <span class="large-screen-text">Lock</span>
+      <span class="small-screen-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"/></svg></span>
+    </div>
+    <div class="leaderboard-button" onclick="openLeaderboard()">
+      <span class="large-screen-text">Leaderboard</span>
+      <span  class="small-screen-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M353.8 54.1L330.2 6.3c-3.9-8.3-16.1-8.6-20.4 0L286.2 54.1l-52.3 7.5c-9.3 1.4-13.3 12.9-6.4 19.8l38 37-9 52.1c-1.4 9.3 8.2 16.5 16.8 12.2l46.9-24.8 46.6 24.4c8.6 4.3 18.3-2.9 16.8-12.2l-9-52.1 38-36.6c6.8-6.8 2.9-18.3-6.4-19.8l-52.3-7.5zM256 256c-17.7 0-32 14.3-32 32l0 192c0 17.7 14.3 32 32 32l128 0c17.7 0 32-14.3 32-32l0-192c0-17.7-14.3-32-32-32l-128 0zM32 320c-17.7 0-32 14.3-32 32L0 480c0 17.7 14.3 32 32 32l128 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32L32 320zm416 96l0 64c0 17.7 14.3 32 32 32l128 0c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l-128 0c-17.7 0-32 14.3-32 32z"/></svg></span>
+    </div>
+    <div class="rules" onclick="showRules()">
+      <span class="large-screen-text">Rules</span>
+      <span  class="small-screen-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M0 80l0 48c0 17.7 14.3 32 32 32l16 0 48 0 0-80c0-26.5-21.5-48-48-48S0 53.5 0 80zM112 32c10 13.4 16 30 16 48l0 304c0 35.3 28.7 64 64 64s64-28.7 64-64l0-5.3c0-32.4 26.3-58.7 58.7-58.7L480 320l0-192c0-53-43-96-96-96L112 32zM464 480c61.9 0 112-50.1 112-112c0-8.8-7.2-16-16-16l-245.3 0c-14.7 0-26.7 11.9-26.7 26.7l0 5.3c0 53-43 96-96 96l176 0 96 0z"/></svg></span>
+    </div>
+  </footer>
+
+  <div class="choose-team-cont">
+    <div class="choose-team">
+      <p>Choose your team</p>
+      <ul class="team-cont">
+        <li onclick="setTeam('red')">Red</li>
+        <li onclick="setTeam('blue')">Blue</li>
+        <li onclick="setTeam('green')">Green</li>
+        <li onclick="setTeam('yellow')">Yellow</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="leaderboard-cont">
+    <div class="leaderboard">
+      <table>
+        <tr>
+          <th>Team</th>
+          <th>Score</th>
+        </tr>
+        <tr>
+          <td>Red</td>
+          <td class="red-score"></td>
+        </tr>
+        <tr>
+          <td>Green</td>
+          <td class="green-score"></td>
+        </tr>
+        <tr>
+          <td>Blue</td>
+          <td class="blue-score"></td>
+        </tr>
+        <tr>
+          <td>Yellow</td>
+          <td class="yellow-score"></td>
+        </tr>
+      </table>
+
+      <button onclick="closeLeaderboard()">close</button>
+    </div>
+  </div>
+
+  <div class="lock-in-cont">
+    <div class="lock-in">
+      <p>Are you sure you want to lock in your score of <span class="current-score"></span> for team <span class="current-team"></span></p>
+      <div class="lock-in-button-cont">
+        <button onclick="lockInScore()">Yes</button>
+        <button onclick="closeLockIn()">No</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="rules-main-cont">
+    <div class="rules-cont">
+      <div class="rules-top">
+        <span class="rules-span">RULES</span>
+        <img src="images/icon-close.svg" alt="cancel button" class="rules-cancel" onclick="hideRules()">
+      </div>
+      <img src="images/image-rules.svg" alt="rules picture" class="rules-image">
+      <img src="images/icon-close.svg" alt="cancel button" class="rules-cancel" id="rules-cancels" onclick="hideRules()">
+    </div>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
